@@ -16,14 +16,23 @@ class CreatureModifier:
     def __init__(self, creature):
         self.creature = creature
         self.next_modifier = None
-
+## Everytime I add a modifier I call my next modifier which sets a new next modifier 
+## this is how the chaining happens
     def add_modifier(self, modifier):
         if self.next_modifier:
+            ## check if I have next modifier I call its add_modifier which takes the flow to the next modifier
+            ## and so on unitl we reach the last modifier which does not have next modifier and the execution
+            ## goes to the else part of the if condition and all we do it define a next modifer which does not
+            ## yet have a next modifier
             self.next_modifier.add_modifier(modifier)
         else:
             self.next_modifier = modifier
 
     def handle(self):
+        ## If I am asked to handle I just call the handle of the next modifier! 
+        ## this is how the handles of the next modifiers get chained one after the other
+        # until the last modifier that does not have a next modifer and the call to the super handler
+        ## does nothing. Note that there is no else statement here which is essential! 
         if self.next_modifier:
             self.next_modifier.handle()
 
